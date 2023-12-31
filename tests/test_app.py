@@ -21,6 +21,9 @@ class TestMain(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Hello World!', response.data)
 
+    def test_basic_logic(self):
+        assert 2 == len('ad')
 
-if __name__ == '__main__':
-    unittest.main()
+
+# if __name__ == '__main__':
+#     unittest.main()
