@@ -1,7 +1,15 @@
 pipeline {
-    agent { docker { image 'python:3.8.10-alpine3.19' } }
+    agent {
+        docker {image 'python:3.8.18-bullseye'}
+    }
 
     stages {
+        stage('Prepare') {
+            steps {
+                echo 'Preparing...'
+                sh 'pip install -r requirements.txt'
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing'
@@ -11,13 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'pip install -r requirements.txt'
                 sh 'python app.py'
-            }
-        }
-        post {
-            failure {
-                mail(to: 'congthanhtr151@gmail.com', subject: 'The pipeline has been built failed')
             }
         }
     }
